@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs/promises");
+var { nanoid } = require("nanoid");
 
 const contactsPath = path.join(__dirname, "db", "contacts.json");
 
@@ -28,14 +29,8 @@ async function addContact(name, email, phone) {
   try {
     const data = await fs.readFile(contactsPath, "utf8");
     const contacts = JSON.parse(data);
-
-    const maxId = contacts.reduce(
-      (max, contact) => Math.max(max, Number(contact.id)),
-      0
-    );
-    const nextId = String(maxId + 1);
-
-    contacts.push({ id: nextId, name, email, phone });
+    var id = nanoid();
+    contacts.push({ id, name, email, phone });
     await fs.writeFile(contactsPath, JSON.stringify(contacts), "utf8");
   } catch (error) {
     console.log(error.message);

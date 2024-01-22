@@ -48,17 +48,7 @@ function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "remove":
-      removeContact(id)
-        .then((contact) => {
-          if (!contact) {
-            console.log("Contact not found");
-          } else {
-            console.log("Contact removed successfully");
-          }
-        })
-        .catch((error) =>
-          console.log("Error retrieving contact: " + error.message)
-        );
+      removeContact(id);
       break;
 
     default:
